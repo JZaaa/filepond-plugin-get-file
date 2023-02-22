@@ -102,18 +102,21 @@
         if (!item || item.archived) {
           return;
         }
-        const labelButtonDownload = root.query(
-          'GET_LABEL_BUTTON_DOWNLOAD_ITEM'
-        );
-        const allowDownloadByUrl = root.query('GET_ALLOW_DOWNLOAD_BY_URL');
-        const downloadFunction = root.query('GET_DOWNLOAD_FUNCTION');
-        registerDownloadComponent(
-          item,
-          root.element,
-          labelButtonDownload,
-          allowDownloadByUrl,
-          downloadFunction
-        );
+        const allowDownload = root.query('GET_ALLOW_DOWNLOAD');
+        if (allowDownload) {
+          const labelButtonDownload = root.query(
+            'GET_LABEL_BUTTON_DOWNLOAD_ITEM'
+          );
+          const allowDownloadByUrl = root.query('GET_ALLOW_DOWNLOAD_BY_URL');
+          const downloadFunction = root.query('GET_DOWNLOAD_FUNCTION');
+          registerDownloadComponent(
+            item,
+            root.element,
+            labelButtonDownload,
+            allowDownloadByUrl,
+            downloadFunction
+          );
+        }
       };
 
       // start writing
@@ -139,6 +142,7 @@
         labelButtonDownloadItem: ['Download file', Type.STRING],
         allowDownloadByUrl: [false, Type.BOOLEAN],
         downloadFunction: [null, Type.FUNCTION],
+        allowDownload: [false, Type.BOOLEAN],
       },
     };
   };

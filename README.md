@@ -50,6 +50,7 @@ const pond = FilePond.create({
     name: 'filepond',
     labelButtonDownloadItem: 'custom label', // by default 'Download file'
     allowDownloadByUrl: false, // by default downloading by URL disabled
+    allowDownload: true, // Enable or disable file download
 });
 ```
 

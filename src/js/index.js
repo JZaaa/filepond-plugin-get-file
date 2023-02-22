@@ -10,7 +10,7 @@ const plugin = fpAPI => {
 
     // called for each view that is created right after the 'create' method
     addFilter('CREATE_VIEW', viewAPI => {
-        
+
         // get reference to created view
         const { is, view, query } = viewAPI;
 
@@ -28,13 +28,17 @@ const plugin = fpAPI => {
                 return;
             }
 
-            const labelButtonDownload = root.query('GET_LABEL_BUTTON_DOWNLOAD_ITEM');
+            const allowDownload = root.query('GET_ALLOW_DOWNLOAD');
 
-            const allowDownloadByUrl = root.query('GET_ALLOW_DOWNLOAD_BY_URL');
+            if (allowDownload) {
+                const labelButtonDownload = root.query('GET_LABEL_BUTTON_DOWNLOAD_ITEM');
 
-            const downloadFunction = root.query('GET_DOWNLOAD_FUNCTION');
+                const allowDownloadByUrl = root.query('GET_ALLOW_DOWNLOAD_BY_URL');
 
-            registerDownloadComponent(item, root.element, labelButtonDownload, allowDownloadByUrl, downloadFunction);
+                const downloadFunction = root.query('GET_DOWNLOAD_FUNCTION');
+                registerDownloadComponent(item, root.element, labelButtonDownload, allowDownloadByUrl, downloadFunction);
+            }
+
         };
 
         // start writing
@@ -57,6 +61,7 @@ const plugin = fpAPI => {
             labelButtonDownloadItem: ['Download file', Type.STRING],
             allowDownloadByUrl: [false, Type.BOOLEAN],
             downloadFunction: [null, Type.FUNCTION],
+            allowDownload: [false, Type.BOOLEAN],
         }
     };
 };
